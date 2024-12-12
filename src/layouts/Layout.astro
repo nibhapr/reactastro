@@ -1,0 +1,177 @@
+---
+import HeaderData from '../components/Header/HeaderData';
+import HeaderComponents from '../components/HeaderComponents';
+import FooterComponents from '../components/FooterComponents';
+import Whatsapp from '../components/Whatsapp';
+import { Schema } from "astro-seo-schema"
+import { SEO } from "astro-seo";
+interface Props {
+	title: string;
+	descriptions:string;
+	image:string;
+  name:string;
+}
+const { title,descriptions,image,name } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<Schema
+		item={{
+			"@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bondsign.ae/#organization",
+      "name": name,
+      "url": "https://bondsign.ae",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": `${Astro.url.origin}/assets/logo2.png`,
+        "url": `${Astro.url.origin}/assets/logo2.png`,
+        "contentUrl": `${Astro.url.origin}/assets/logo2.png`,
+        "caption": "bondsign",
+        "inLanguage": "en-US",
+       
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bondsign.ae/#website",
+      "url": "https://bondsign.ae",
+      "name": "bondsign.ae",
+      "publisher": {
+        "@id": "https://bondsign.ae/#organization"
+      },
+      "inLanguage": "en-US",
+      
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${Astro.url.origin}/assets/logo2.png`,
+      "url": `${Astro.url.origin}/assets/logo2.png`,
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://bondsign.ae/#webpage",
+      "url": "https://bondsign.ae/",
+      "name": title,
+      "description": descriptions,
+      "datePublished": "2024-05-05T12:19:39+01:00",
+      "dateModified": "2024-11-25T11:05:33+00:00",
+      "about": {
+        "@id": "https://bondsign.ae/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://bondsign.ae/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": `${Astro.url.origin}/assets/logo2.png`,
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Article",
+      "headline": title,
+      "datePublished": "2024-05-05T12:19:39+01:00",
+      "dateModified": "2024-11-25T11:05:33+00:00",
+      "publisher": {
+        "@id": "https://bondsign.ae/#organization"
+      },
+      "description": descriptions,
+      "name": title,
+      "@id": "https://bondsign.ae/#richSnippet",
+      "isPartOf": {
+        "@id": "https://bondsign.ae/#webpage"
+      },
+      "inLanguage": "en-US",
+      "mainEntityOfPage": {
+        "@id": "https://bondsign.ae/#webpage"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Bondsign"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url":  `${Astro.url.origin}/assets/logo2.png`,
+        "caption": "Professional Signage Solutions in Abudhabi"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": []
+      }
+    }
+  ]
+		}}
+	/>
+		<meta charset="UTF-8" />
+		<meta name="description" content={descriptions} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<SEO
+		title={title}
+		description={descriptions}
+		openGraph={{
+		  basic: {
+			title: title,
+			type: "A type.",
+			image: image,
+		  }
+		}}
+		twitter={{
+		  creator: "@jonasmerlins1"
+		}}
+		extend={{
+		link: [{ rel: "icon", href: "/favicon.ico" }],
+		  meta: [
+			{
+			  name: "twitter:image",
+			  content: image,
+			},
+			{ name: "twitter:title", content: title },
+			{ name: "twitter:description", content: descriptions },
+		  ],
+		}}
+	  />
+		<title>{title}</title>
+	</head>
+	<body>
+		<HeaderComponents {...HeaderData}  client:load/> 
+		<slot />
+		<Whatsapp client:load />
+		<FooterComponents client:load/>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: #13151a;
+	}
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>
